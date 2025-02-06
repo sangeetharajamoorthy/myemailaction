@@ -1,0 +1,21 @@
+name: My Email Action
+
+on:
+  push: # Trigger on push to any branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout code  # Standard checkout step
+        uses: actions/checkout@v3
+
+      - name: sangeetha.rajamoorthy@straive.com - Run a script  # Step with your email in the name
+        run: |
+          echo "Hello, world!"
+          echo "This action was triggered by a push."
+          echo "My email is sangeetha.rajamoorthy@straive.com (in the step name)."
+
+      - name: Another step (optional) # Example of an additional step
+        run: echo "This is another step."
