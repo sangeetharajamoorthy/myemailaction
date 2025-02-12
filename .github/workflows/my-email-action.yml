@@ -1,21 +1,24 @@
-name: My Email Action
+name: Daily Commit
 
 on:
-  push: # Trigger on push to any branch
+  schedule:
+    - cron: '0 0 * * *'  # Runs at 00:00 UTC every day (adjust as needed)
 
 jobs:
-  test:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
-
+  daily_commit:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code  # Standard checkout step
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: sangeetha.rajamoorthy@straive.com - Run a script  # Step with your email in the name
+      - name: Add a file or modify an existing one
         run: |
-          echo "Hello, world!"
-          echo "This action was triggered by a push."
-          echo "My email is sangeetha.rajamoorthy@straive.com (in the step name)."
+          echo "Updated at $(date)" > daily_update.txt  # Add/update a file
+          git add daily_update.txt
 
-      - name: Another step (optional) # Example of an additional step
-        run: echo "This is another step."
+      - name: Commit changes (sangeetha.rajamoorthy@straive.com)
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Daily automatic commit"
+          email: "sangeetha.rajamoorthy@straive.com" # Your email here
+          github_token: ${{ secrets.GITHUB_TOKEN }}
